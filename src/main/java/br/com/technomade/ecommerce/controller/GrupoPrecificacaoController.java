@@ -1,7 +1,6 @@
 package br.com.technomade.ecommerce.controller;
 
 import br.com.technomade.ecommerce.model.GrupoPrecificacao;
-import br.com.technomade.ecommerce.model.Produto;
 import br.com.technomade.ecommerce.service.GrupoPrecificacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
