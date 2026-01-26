@@ -2,7 +2,6 @@ package br.com.technomade.ecommerce.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
