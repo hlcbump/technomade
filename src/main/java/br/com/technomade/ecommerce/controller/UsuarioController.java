@@ -5,14 +5,9 @@ import br.com.technomade.ecommerce.dto.usuario.UsuarioResponseDTO;
 import br.com.technomade.ecommerce.dto.usuario.UsuarioUpdateDTO;
 import br.com.technomade.ecommerce.model.Usuario;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import br.com.technomade.ecommerce.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -53,6 +48,18 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id){
         usuarioService.deletarPorId(id);
+    }
+
+    @PutMapping("/{id}/inativar")
+    public UsuarioResponseDTO inativar(@PathVariable Long id){
+        Usuario usuario = usuarioService.inativar(id);
+        return toResponseDTO(usuario);
+    }
+
+    @PutMapping("/{id}/ativar")
+    public UsuarioResponseDTO ativar(@PathVariable Long id){
+        Usuario usuario = usuarioService.ativar(id);
+        return toResponseDTO(usuario);
     }
 
     @PutMapping("/{id}")
