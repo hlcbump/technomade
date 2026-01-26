@@ -25,24 +25,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // Em dev, desabilite CSRF para facilitar chamadas do front
                 .csrf(csrf -> csrf.disable())
-                // Habilita CORS usando o bean corsConfigurationSource() abaixo
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        // Preflight dos browsers
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                        // Endpoints públicos
                         .requestMatchers("/api/auth/login").permitAll()
-
-                        // Enquanto você testa o front, libere os usuários:
                         .requestMatchers("/api/usuarios/**").permitAll()
-
-                        // TODO: proteja o restante
+                        .requestMatchers("/api/produtos/**").permitAll()
+                        .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated()
                 )
-                // Seu filtro JWT antes do UsernamePasswordAuthenticationFilter
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -52,19 +44,19 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // Origem do Angular em dev
-        config.setAllowedOrigins(List.of("http://localhost:4200"));
-        // Métodos aceitos
+        config.setAllowedOrigins(List.of(
+                "http://localhost:4200",
+                "http://localhost:8000",
+                "http://localhost:3000",
+                "http://127.0.0.1:8000",
+                "null"
+        ));
         config.setAllowedMethods(List.of("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
-        // Headers aceitos
         config.setAllowedHeaders(List.of("*"));
-        // Se você precisa enviar cookies/Authorization do browser:
         config.setAllowCredentials(true);
-        // (Opcional) por quanto tempo o preflight pode ser cacheado (segundos)
         config.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        // Aplica para toda a API
         source.registerCorsConfiguration("/**", config);
         return source;
     }
