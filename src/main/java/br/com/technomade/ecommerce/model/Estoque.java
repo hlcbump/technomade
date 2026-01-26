@@ -25,6 +25,9 @@ public class Estoque {
     @JoinColumn(name = "produto_id", nullable = false)
     private Produto produto;
 
+    @Column(name="valor_custo")
+    private Double valorCusto;
+
     @NotNull
     private Integer quantidade;
 
