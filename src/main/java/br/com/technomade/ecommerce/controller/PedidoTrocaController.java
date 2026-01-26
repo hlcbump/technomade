@@ -1,6 +1,4 @@
 package br.com.technomade.ecommerce.controller;
-
-import br.com.technomade.ecommerce.dto.troca.ItemTrocaRequestDTO;
 import br.com.technomade.ecommerce.dto.troca.PedidoTrocaRequest;
 import br.com.technomade.ecommerce.model.ItemTroca;
 import br.com.technomade.ecommerce.model.PedidoTroca;
