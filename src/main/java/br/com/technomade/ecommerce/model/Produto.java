@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -67,4 +68,17 @@ public class Produto {
     private GrupoPrecificacao grupoPrecificacao;
 
     private boolean ativo = true;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ultima_acao")
+    private AcaoStatusProduto ultimaAcao;
+
+    @Column(name = "ultimo_motivo")
+    private String ultimoMotivo;
+
+    @Column(name = "ultima_justificativa")
+    private String ultimaJustificativa;
+
+    @Column(name = "ultima_data")
+    private LocalDateTime ultimaData;
 }
