@@ -30,8 +30,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/usuarios/senha").authenticated()
                         .requestMatchers("/api/usuarios/**").permitAll()
                         .requestMatchers("/api/produtos/**").permitAll()
+                        .requestMatchers("/api/estoque/**", "/api/movimentacoes/**").hasRole("ADMIN")
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated()
                 )
