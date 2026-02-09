@@ -1,5 +1,6 @@
 package br.com.technomade.ecommerce.controller;
 
+import br.com.technomade.ecommerce.dto.relatorio.CategoriaVendaDTO;
 import br.com.technomade.ecommerce.dto.relatorio.ProdutoVendaDTO;
 import br.com.technomade.ecommerce.service.RelatorioVendasService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,16 @@ public class RelatorioVendasController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim
             ) {
         List<ProdutoVendaDTO> relatorio = relatorioVendasService.gerarRelatorioPorPeriodo(inicio, fim);
+        return ResponseEntity.ok(relatorio);
+    }
+
+    // relatorio de vendas por categoria no periodo
+    @GetMapping("/vendas/categorias")
+    public ResponseEntity<List<CategoriaVendaDTO>> relatorioVendasPorCategoria(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim
+    ) {
+        List<CategoriaVendaDTO> relatorio = relatorioVendasService.gerarRelatorioPorCategoria(inicio, fim);
         return ResponseEntity.ok(relatorio);
     }
 }
