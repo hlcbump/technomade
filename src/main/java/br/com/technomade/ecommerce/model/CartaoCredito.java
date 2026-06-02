@@ -1,5 +1,6 @@
 package br.com.technomade.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,7 @@ public class CartaoCredito {
     private boolean preferencial = false;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @JoinColumn(name = "cliente_id")
+    @JsonIgnore
+    private Cliente cliente;
 }
