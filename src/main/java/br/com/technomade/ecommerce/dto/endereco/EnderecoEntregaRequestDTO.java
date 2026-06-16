@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class EnderecoEntregaRequestDTO {
 
+    private String tipoEndereco;
+
     @NotBlank
     private String nomeEndereco;
 

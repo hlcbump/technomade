@@ -35,8 +35,8 @@ public class Cupom {
 
     private LocalDateTime validade;
 
-    // muitos cupoms podem estar associado a um mesmo cliente
+    // muitos cupons podem estar associado a um mesmo cliente (null para promocionais globais)
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario cliente;
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 }

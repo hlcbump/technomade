@@ -2,6 +2,7 @@ package br.com.technomade.ecommerce.controller;
 
 import br.com.technomade.ecommerce.dto.relatorio.CategoriaVendaDTO;
 import br.com.technomade.ecommerce.dto.relatorio.ProdutoVendaDTO;
+import br.com.technomade.ecommerce.dto.relatorio.SerieTemporalCategoriaDTO;
 import br.com.technomade.ecommerce.service.RelatorioVendasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -39,5 +40,15 @@ public class RelatorioVendasController {
     ) {
         List<CategoriaVendaDTO> relatorio = relatorioVendasService.gerarRelatorioPorCategoria(inicio, fim);
         return ResponseEntity.ok(relatorio);
+    }
+
+    // serie temporal de vendas por categoria - grafico de linhas
+    @GetMapping("/vendas/categorias/serie-temporal")
+    public ResponseEntity<SerieTemporalCategoriaDTO> serieTemporalPorCategoria(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim
+    ) {
+        SerieTemporalCategoriaDTO serie = relatorioVendasService.gerarSerieTemporalPorCategoria(inicio, fim);
+        return ResponseEntity.ok(serie);
     }
 }

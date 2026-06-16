@@ -27,7 +27,5 @@ public class UsuarioResponseDTO {
     private String cpf;
     private String telefone;
 
-    // endereço principal
-    private String endereco;
     private boolean ativo;
 }

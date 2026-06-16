@@ -5,12 +5,10 @@ import br.com.technomade.ecommerce.dto.usuario.UsuarioRequestDTO;
 import br.com.technomade.ecommerce.dto.usuario.UsuarioResponseDTO;
 import br.com.technomade.ecommerce.dto.usuario.UsuarioUpdateDTO;
 import br.com.technomade.ecommerce.dto.compra.CompraResumoDTO;
-import br.com.technomade.ecommerce.dto.endereco.EnderecoEntregaRequestDTO;
-import br.com.technomade.ecommerce.model.Genero;
+import br.com.technomade.ecommerce.model.Cliente;
 import br.com.technomade.ecommerce.model.Role;
 import br.com.technomade.ecommerce.model.Usuario;
 import br.com.technomade.ecommerce.model.Compra;
-import br.com.technomade.ecommerce.model.EnderecoEntrega;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import br.com.technomade.ecommerce.service.UsuarioService;
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = {"http://localhost:8000"})
@@ -40,25 +39,15 @@ public class UsuarioController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String nome,
             @RequestParam(required = false) String email,
-            @RequestParam(required = false) String cpf,
-            @RequestParam(required = false) String telefone,
-            @RequestParam(required = false) String endereco,
-            @RequestParam(required = false) Genero genero,
             @RequestParam(required = false) Role role,
-            @RequestParam(required = false) Boolean ativo,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataNascimento
+            @RequestParam(required = false) Boolean ativo
     ) {
 
         Page<Usuario> usuarios = usuarioService.listarComFiltros(
                 nome,
                 email,
-                cpf,
-                telefone,
-                endereco,
-                genero,
                 role,
                 ativo,
-                dataNascimento,
                 PageRequest.of(page, size)
         );
 
@@ -77,13 +66,17 @@ public class UsuarioController {
         usuarioService.buscarPorId(id)
                 .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
 
-        List<Compra> compras = compraService.listarPorCliente(id);
+        // buscar o cliente associado ao usuario para pegar o clienteId
+        Optional<Cliente> clienteOpt = usuarioService.buscarClientePorUsuarioId(id);
+        if (clienteOpt.isEmpty()) {
+            return List.of();
+        }
+
+        List<Compra> compras = compraService.listarPorCliente(clienteOpt.get().getId());
         return compras.stream()
                 .map(this::toResumoDTO)
                 .collect(Collectors.toList());
     }
-
-
 
     // pathvariable pega valores dinamicos da URL e passa como argumento no controller
     @GetMapping("/{id}")
@@ -96,8 +89,14 @@ public class UsuarioController {
     @PostMapping
     // requestbody converte o json enviado pelo postman em um objeto
     public UsuarioResponseDTO cadastrar(@RequestBody UsuarioRequestDTO dto){
-        Usuario usuario = toEntity(dto);
-        Usuario salvo = usuarioService.salvar(usuario);
+        Usuario usuario = Usuario.builder()
+                .nome(dto.getNome())
+                .email(dto.getEmail())
+                .senha(dto.getSenha())
+                .role(dto.getRole() != null ? dto.getRole() : Role.CLIENTE)
+                .build();
+
+        Usuario salvo = usuarioService.salvar(usuario, dto);
         return toResponseDTO(salvo);
     }
 
@@ -124,61 +123,26 @@ public class UsuarioController {
         return toResponseDTO(usuarioAtualizado);
     }
 
-    // metodo para converter dto em entidade
-    private Usuario toEntity(UsuarioRequestDTO dto){
-        Usuario usuario = Usuario.builder()
-                .nome(dto.getNome())
-                .genero(dto.getGenero())
-                .dataNascimento(dto.getDataNascimento())
-                .email(dto.getEmail())
-                .senha(dto.getSenha())
-                .role(dto.getRole())
-                .cpf(dto.getCpf())
-                .telefone(dto.getTelefone())
-                .endereco(dto.getEndereco())
-                .build();
-
-        if (dto.getEnderecosEntrega() != null) {
-            List<EnderecoEntrega> enderecos = dto.getEnderecosEntrega().stream()
-                    .map(enderecoDto -> toEnderecoEntrega(enderecoDto, usuario))
-                    .collect(Collectors.toList());
-            usuario.setEnderecosEntrega(enderecos);
-        }
-
-        return usuario;
-    }
-
-    private EnderecoEntrega toEnderecoEntrega(EnderecoEntregaRequestDTO dto, Usuario usuario) {
-        return EnderecoEntrega.builder()
-                .nomeEndereco(dto.getNomeEndereco())
-                .tipoResidencia(dto.getTipoResidencia())
-                .tipoLogradouro(dto.getTipoLogradouro())
-                .logradouro(dto.getLogradouro())
-                .numero(dto.getNumero())
-                .bairro(dto.getBairro())
-                .cep(dto.getCep())
-                .cidade(dto.getCidade())
-                .estado(dto.getEstado())
-                .pais(dto.getPais())
-                .observacoes(dto.getObservacoes())
-                .usuario(usuario)
-                .build();
-    }
-
-    // metodo para converter entidade em dto
+    // metodo para converter entidade em dto (popula dados do Cliente quando role=CLIENTE)
     private UsuarioResponseDTO toResponseDTO(Usuario usuario){
-        return UsuarioResponseDTO.builder()
+        UsuarioResponseDTO.UsuarioResponseDTOBuilder builder = UsuarioResponseDTO.builder()
                 .id(usuario.getId())
                 .nome(usuario.getNome())
-                .genero(usuario.getGenero())
-                .dataNascimento(usuario.getDataNascimento())
                 .email(usuario.getEmail())
                 .role(usuario.getRole())
-                .cpf(usuario.getCpf())
-                .telefone(usuario.getTelefone())
-                .endereco(usuario.getEndereco())
-                .ativo(usuario.isAtivo())
-                .build();
+                .ativo(usuario.isAtivo());
+
+        // buscar dados do Cliente se for role CLIENTE
+        if (usuario.getRole() == Role.CLIENTE) {
+            usuarioService.buscarClientePorUsuario(usuario).ifPresent(cliente -> {
+                builder.genero(cliente.getGenero());
+                builder.dataNascimento(cliente.getDataNascimento());
+                builder.cpf(cliente.getCpf());
+                builder.telefone(cliente.getTelefone());
+            });
+        }
+
+        return builder.build();
     }
 
     private CompraResumoDTO toResumoDTO(Compra compra){

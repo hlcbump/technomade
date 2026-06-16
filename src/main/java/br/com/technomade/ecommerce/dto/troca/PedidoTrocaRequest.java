@@ -13,4 +13,6 @@ public class PedidoTrocaRequest {
 
     @NotNull
     private List<ItemTrocaRequestDTO> itens;
+
+    private String motivo;
 }

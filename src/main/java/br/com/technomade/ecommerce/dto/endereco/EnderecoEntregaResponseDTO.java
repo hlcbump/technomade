@@ -9,6 +9,8 @@ public class EnderecoEntregaResponseDTO {
 
     private Long id;
 
+    private String tipoEndereco;
+
     private String nomeEndereco;
 
     private String tipoResidencia;

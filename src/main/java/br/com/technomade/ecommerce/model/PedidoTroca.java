@@ -30,6 +30,8 @@ public class PedidoTroca {
     @JoinColumn(name = "compra_id", nullable = false)
     private Compra compra;
 
+    private String motivo;
+
     @Column(name = "data_solicitacao", nullable = false)
     private LocalDateTime dataSolicitacao;
 

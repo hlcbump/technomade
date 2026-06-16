@@ -4,6 +4,7 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -14,7 +15,8 @@ public class JwtService {
 
     // chave para assinar e validar o token jwt
     // gerar string hexadecimal com 32 bytes = openssl rand -hex 32
-    private final String secret = "7d3272e5edc6896636758f6f2cf269c06683da6e6b7958a8021b052db9b65fbe";
+    @Value("${app.jwt.secret}")
+    private String secret;
     // tempo de expiração do token em ms (10hrs)
     private final long expirationMs = 1000 * 60 * 60 * 10;
 

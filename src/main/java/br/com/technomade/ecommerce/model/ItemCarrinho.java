@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "itens_carrinho", uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id", "produto_id"}))
+@Table(name = "itens_carrinho", uniqueConstraints = @UniqueConstraint(columnNames = {"cliente_id", "produto_id"}))
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,8 +21,8 @@ public class ItemCarrinho {
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "produto_id")

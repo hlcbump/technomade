@@ -1,12 +1,9 @@
 package br.com.technomade.ecommerce.controller;
 
-
 import br.com.technomade.ecommerce.dto.endereco.EnderecoEntregaRequestDTO;
 import br.com.technomade.ecommerce.dto.endereco.EnderecoEntregaResponseDTO;
 import br.com.technomade.ecommerce.model.EnderecoEntrega;
-import br.com.technomade.ecommerce.model.Usuario;
 import br.com.technomade.ecommerce.service.EnderecoEntregaService;
-import br.com.technomade.ecommerce.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +17,6 @@ public class EnderecoEntregaController {
     @Autowired
     private EnderecoEntregaService enderecoEntregaService;
 
-    @Autowired
-    private UsuarioService usuarioService;
-
     @GetMapping
     public List<EnderecoEntregaResponseDTO> listar(){
         return enderecoEntregaService.listarEnderecos().stream()
@@ -32,9 +26,7 @@ public class EnderecoEntregaController {
 
     @PostMapping
     public EnderecoEntregaResponseDTO cadastrar(@RequestBody EnderecoEntregaRequestDTO dto){
-        Usuario usuario = usuarioService.getUsuarioLogado();
         EnderecoEntrega enderecoEntrega = toEntity(dto);
-        enderecoEntrega.setUsuario(usuario);
         return toResponseDTO(enderecoEntregaService.salvar(enderecoEntrega));
     }
 
@@ -44,9 +36,15 @@ public class EnderecoEntregaController {
         return toResponseDTO(enderecoEntregaAtualizado);
     }
 
+    @DeleteMapping("/{id}")
+    public void deletar(@PathVariable Long id){
+        enderecoEntregaService.deletar(id);
+    }
+
     // metodo para converter dto em entidade
     private EnderecoEntrega toEntity(EnderecoEntregaRequestDTO dto){
         return EnderecoEntrega.builder()
+                .tipoEndereco(dto.getTipoEndereco() != null ? dto.getTipoEndereco() : "ENTREGA")
                 .nomeEndereco(dto.getNomeEndereco())
                 .tipoResidencia(dto.getTipoResidencia())
                 .tipoLogradouro(dto.getTipoLogradouro())
@@ -65,6 +63,7 @@ public class EnderecoEntregaController {
     private EnderecoEntregaResponseDTO toResponseDTO(EnderecoEntrega enderecoEntrega){
         return EnderecoEntregaResponseDTO.builder()
                 .id(enderecoEntrega.getId())
+                .tipoEndereco(enderecoEntrega.getTipoEndereco())
                 .nomeEndereco(enderecoEntrega.getNomeEndereco())
                 .tipoResidencia(enderecoEntrega.getTipoResidencia())
                 .tipoLogradouro(enderecoEntrega.getTipoLogradouro())

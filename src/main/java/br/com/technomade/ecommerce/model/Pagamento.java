@@ -31,6 +31,7 @@ public class Pagamento {
     // varios pagamentos podem estar ligado a uma mesma compra
     @ManyToOne
     @JoinColumn(name = "compra_id", nullable = false)
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private Compra compra;
 
     // muitos pagamentos podem usar o mesmo cartao

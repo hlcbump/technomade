@@ -46,6 +46,11 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Senha inválida");
         }
 
+        // verifica se o usuario está ativo
+        if (!usuario.isAtivo()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuário Desativado");
+        }
+
         // se email e senha estiver certo, gera o token jwt
         String token = jwtService.gerarToken(usuario.getEmail());
 

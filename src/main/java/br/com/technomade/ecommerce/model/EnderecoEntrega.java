@@ -1,11 +1,9 @@
 package br.com.technomade.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "enderecos_entrega")
@@ -18,6 +16,11 @@ public class EnderecoEntrega {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // RN0021/RN0022 - Tipo do endereco (ENTREGA, COBRANCA, AMBOS)
+    @NotBlank
+    @Builder.Default
+    private String tipoEndereco = "ENTREGA";
 
     @NotBlank
     private String nomeEndereco;
@@ -52,7 +55,8 @@ public class EnderecoEntrega {
     private String observacoes;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @JoinColumn(name = "cliente_id")
+    @JsonIgnore
+    private Cliente cliente;
 
 }

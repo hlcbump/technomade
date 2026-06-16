@@ -42,9 +42,6 @@ public class UsuarioRequestDTO {
     // telefone de contato
     private String telefone;
 
-    // endereço principal 
-    private String endereco;
-
     // lista de endereços de entrega que o usuario quer cadastrar junto com a conta
     private List<EnderecoEntregaRequestDTO> enderecosEntrega;
 }

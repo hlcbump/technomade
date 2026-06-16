@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = {"http://localhost:8000"})
 @RestController
 @RequestMapping("/api/trocas")
 public class PedidoTrocaController {
@@ -66,7 +65,7 @@ public class PedidoTrocaController {
                 })
                 .collect(Collectors.toList());
 
-        PedidoTroca troca = pedidoTrocaService.solicitarTroca(dto.getCompraId(), itens);
+        PedidoTroca troca = pedidoTrocaService.solicitarTroca(dto.getCompraId(), itens, dto.getMotivo());
         return ResponseEntity.ok(troca);
     }
 
@@ -77,9 +76,18 @@ public class PedidoTrocaController {
         return ResponseEntity.ok(troca);
     }
 
+    // endpoint para negar troca - admin
+    @PutMapping("/{id}/negar")
+    public ResponseEntity<PedidoTroca> negarTroca(@PathVariable Long id, @RequestBody(required = false) java.util.Map<String, String> body){
+        String motivo = body != null ? body.get("motivo") : null;
+        PedidoTroca troca = pedidoTrocaService.negarTroca(id, motivo);
+        return ResponseEntity.ok(troca);
+    }
+
     // confirmar recebimento do produto da troca e reestocar
     @PutMapping("/{id}/receber")
-    public ResponseEntity<Void> confirmarRecebimento(@PathVariable Long id, boolean reestocar){
+    public ResponseEntity<Void> confirmarRecebimento(@PathVariable Long id, @RequestBody(required = false) java.util.Map<String, Boolean> body){
+        boolean reestocar = body != null && Boolean.TRUE.equals(body.get("reestocar"));
         pedidoTrocaService.confirmarRecebimento(id, reestocar);
         return ResponseEntity.ok().build();
     }

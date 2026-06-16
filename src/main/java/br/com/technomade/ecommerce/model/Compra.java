@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,14 +22,18 @@ public class Compra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // muitos pedidos podem ser feitos por um mesmo usuario
+    // muitos pedidos podem ser feitos por um mesmo cliente
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario cliente;
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private Cliente cliente;
 
     // uma compra pode ter varios itens
     @OneToMany (mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemCompra> itens;
+
+    // uma compra pode ter varios pagamentos
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Pagamento> pagamentos;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -37,8 +42,14 @@ public class Compra {
     @Column(name = "valor_total", nullable = false)
     private Double valorTotal;
 
+    @Column(name = "frete")
+    private Double frete;
+
     @Column(name = "data_compra", nullable = false)
     private LocalDateTime dataCompra;
+
+    @Column(name = "data_entrega_prevista")
+    private LocalDate dataEntregaPrevista;
 
     // varias comprar podem ter o mesmo endereço
     @ManyToOne

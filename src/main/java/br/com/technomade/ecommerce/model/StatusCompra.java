@@ -8,5 +8,6 @@ public enum StatusCompra {
     ENTREGUE,
     EM_TROCA,
     TROCA_AUTORIZADA,
+    TROCA_RECUSADA,
     TROCADA
 }

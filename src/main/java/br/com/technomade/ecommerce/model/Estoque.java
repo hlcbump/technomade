@@ -22,7 +22,7 @@ public class Estoque {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "produto_id", nullable = false)
+    @JoinColumn(name = "produto_id", nullable = false, unique = true)
     private Produto produto;
 
     @Column(name="valor_custo")

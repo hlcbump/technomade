@@ -1,5 +1,6 @@
 package br.com.technomade.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public class ItemCompra {
     // muitos itens pertecem a uma mesma compra
     @ManyToOne
     @JoinColumn(name = "compra_id", nullable = false)
+    @JsonIgnore
     private Compra compra;
 
     // muitos itens podem ser o mesmo produto

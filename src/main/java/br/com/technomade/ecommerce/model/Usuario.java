@@ -1,12 +1,10 @@
 package br.com.technomade.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -15,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = {"enderecosEntrega", "cartaoCreditos"})
 public class Usuario {
 
     @Id
@@ -26,13 +23,6 @@ public class Usuario {
     @Column(nullable = false)
     private String nome;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
-    private Genero genero;
-
-    @Column(name = "data_nascimento")
-    private LocalDate dataNascimento;
-
     @NotBlank
     @Email
     @Column(nullable = false, unique = true)
@@ -40,26 +30,13 @@ public class Usuario {
 
     @NotBlank
     @Column(nullable = false)
+    @JsonIgnore
     private String senha;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
-    @Column(unique = true)
-    private String cpf;
-
-    private String telefone;
-
-    private String endereco;
-
-    // cascade significa se eu deletar um usuario, também dele os endereços/cartoes
-    // orphanRemove significa se eu remover um endereço da lista ele é apagado do banco
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EnderecoEntrega> enderecosEntrega;
-
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartaoCredito> cartaoCreditos;
-
+    @Builder.Default
     private boolean ativo = true;
 }
