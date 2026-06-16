@@ -1,0 +1,665 @@
+/* botao circular com icone */
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gray-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  position: relative;
+}
+
+.btn-icon:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* badge de notificacao (contador do carrinho) */
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--danger);
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 600;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+}
+
+/* estilo base dos botoes com variantes de tamanho */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.813rem;
+}
+
+.btn-lg {
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+}
+
+/* botao que ocupa toda a largura */
+.btn-block {
+  width: 100%;
+}
+
+/* botao primario azul */
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* botao com borda (outline) */
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* botao de perigo vermelho */
+.btn-danger {
+  background: var(--danger);
+  color: var(--white);
+}
+
+.btn-danger:hover {
+  opacity: 0.9;
+}
+
+/* card de produto com sombra e efeito hover */
+.product-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* area da imagem do produto */
+.product-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: var(--gray-light);
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* informacoes do produto (nome, descricao, preco) */
+.product-info {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.product-description {
+  color: var(--gray);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* tags de categoria no card de produto */
+.product-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-bottom: 0.75rem;
+}
+
+.product-category-tag {
+  display: inline-block;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+}
+
+/* rodape do card com preco e botao */
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.product-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* cada item do carrinho em grid de 3 colunas */
+.cart-item {
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.5rem 0;
+  border-bottom: 2px solid var(--gray-light);
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.cart-item-info {
+  flex: 1;
+}
+
+.cart-item-info h4 {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.cart-item-price {
+  color: var(--primary);
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+/* acoes do item (quantidade, remover) */
+.cart-item-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+/* controle de quantidade com botoes + e - */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--gray-light);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+}
+
+.quantity-control button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.quantity-control button:hover {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.quantity-control span {
+  min-width: 30px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.cart-item-subtotal {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+/* grupo de campo de formulario (label + input) */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* estilo dos inputs, textareas e selects */
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--gray-light);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--primary);
+}
+
+/* linha de formulario com campos lado a lado */
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* notificacao toast fixa no canto inferior direito */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--white);
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  max-width: 400px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: var(--transition);
+}
+
+/* toast visivel com animacao */
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* toast de sucesso com borda verde */
+.toast-success {
+  border-left: 4px solid var(--success);
+}
+
+/* toast de erro com borda vermelha */
+.toast-error {
+  border-left: 4px solid var(--danger);
+  color: var(--danger);
+}
+
+/* estado vazio quando nao ha dados para exibir */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.empty-state i {
+  font-size: 4rem;
+  color: var(--gray);
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  color: var(--gray);
+  margin-bottom: 2rem;
+}
+
+/* classes utilitarias */
+.text-muted {
+  color: var(--gray);
+}
+
+.text-danger {
+  color: var(--danger);
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* badge de role do usuario (admin ou cliente) */
+.badge-role {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-role.admin {
+  background: var(--danger);
+  color: var(--white);
+}
+
+.badge-role.cliente {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+/* badges de status de pedido/compra */
+.badge-status {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.badge-status.status-processing {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.badge-status.status-approved {
+  background: #d4edda;
+  color: #155724;
+}
+
+.badge-status.status-rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.badge-status.status-transit {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.badge-status.status-delivered {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+
+.badge-status.status-exchange {
+  background: #e2e3f1;
+  color: #383d6e;
+}
+
+.badge-status.status-exchange-auth {
+  background: #fff3cd;
+  color: #664d03;
+}
+
+.badge-status.status-exchanged {
+  background: #e0cffc;
+  color: #432874;
+}
+
+.badge-status.status-active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.badge-status.status-inactive {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.badge-status.status-default {
+  background: var(--gray-light);
+  color: var(--gray);
+}
+
+/* indicador de carregamento */
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--gray);
+  font-size: 1.125rem;
+}
+
+/* linha divisoria */
+.divider {
+  height: 2px;
+  background: var(--gray-light);
+  margin: 1rem 0;
+}
+
+/* estilos de validacao de senha (RNF0031 e RNF0032) */
+.password-requirements {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: var(--gray-light);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+}
+
+/* cada requisito de senha com icone de status */
+.pwd-req {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+  color: var(--gray);
+  transition: var(--transition);
+}
+
+.pwd-req i {
+  font-size: 0.75rem;
+}
+
+/* requisito invalido em vermelho */
+.pwd-req.invalid {
+  color: var(--danger);
+}
+
+.pwd-req.invalid i::before {
+  content: "\f057"; /* fa-times-circle */
+}
+
+/* requisito valido em verde */
+.pwd-req.valid {
+  color: var(--success);
+}
+
+.pwd-req.valid i::before {
+  content: "\f058"; /* fa-check-circle */
+}
+
+/* borda vermelha no campo com erro */
+.input-error {
+  border-color: var(--danger) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+/* mensagem de erro abaixo do campo */
+.field-error {
+  color: var(--danger);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* icone de alerta antes da mensagem de erro */
+.field-error::before {
+  content: "\f071"; /* fa-exclamation-triangle */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 0.7rem;
+}
+
+/* relatorios */
+.report-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.report-stat-card {
+  background: var(--white);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.report-stat-icon {
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.report-stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.report-stat-label {
+  font-size: 0.85rem;
+  color: var(--gray);
+  margin-top: 0.25rem;
+}
+
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bar-chart-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bar-chart-label {
+  min-width: 120px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: right;
+}
+
+.bar-chart-bar-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bar-chart-bar {
+  height: 24px;
+  background: var(--primary);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.bar-chart-value {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--dark);
+  white-space: nowrap;
+}
+
+/* grafico de linhas */
+.line-chart-container {
+  position: relative;
+  height: 400px;
+  margin-top: 1rem;
+}
+
+.line-chart-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.chip-categoria {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+}
+
+.chip-categoria:hover {
+  border-color: var(--chip-color, var(--primary));
+}
+
+.chip-categoria input[type="checkbox"] {
+  display: none;
+}
+
+.chip-categoria:has(input:checked) {
+  background: var(--chip-color, var(--primary));
+  color: var(--white);
+  border-color: var(--chip-color, var(--primary));
+}
+
+.chip-categoria:has(input:checked) .chip-dot {
+  background: var(--white) !important;
+}
+
+.chip-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}

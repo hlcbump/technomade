@@ -1,0 +1,77 @@
+/* importa a fonte Inter do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* variaveis css globais para cores, sombras e estilos reutilizaveis */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --primary-light: #dbeafe;
+  --secondary: #8b5cf6;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --dark: #1f2937;
+  --gray: #6b7280;
+  --gray-light: #f3f4f6;
+  --white: #ffffff;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --transition: all 0.2s ease;
+}
+
+/* reset css - remove margens e paddings padrao do navegador */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* estilo base do corpo da pagina */
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--dark);
+  background: var(--gray-light);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* imagens nao ultrapassam o tamanho do container pai */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* remove sublinhado e cor padrao dos links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* remove marcadores de listas */
+ul, ol {
+  list-style: none;
+}
+
+/* estilo base dos botoes */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* estilo base dos campos de formulario */
+input, textarea, select {
+  font-family: inherit;
+  outline: none;
+}
+
+/* container centralizado com largura maxima */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}

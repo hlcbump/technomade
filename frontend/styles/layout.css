@@ -1,0 +1,253 @@
+/* cabecalho fixo no topo da pagina */
+.header {
+  background: var(--white);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* layout flexbox do conteudo do cabecalho */
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+/* logo e nome da marca clicaveis */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.brand:hover {
+  opacity: 0.8;
+}
+
+/* icone da logo com gradiente */
+.logo {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 1.5rem;
+}
+
+/* texto ao lado da logo */
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.brand-tagline {
+  font-size: 0.75rem;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* menu de navegacao centralizado */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex: 1;
+  justify-content: center;
+}
+
+/* links de navegacao com efeito de sublinhado ao passar o mouse */
+.nav a {
+  font-weight: 500;
+  color: var(--dark);
+  transition: var(--transition);
+  position: relative;
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: var(--transition);
+}
+
+.nav a:hover {
+  color: var(--primary);
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+/* botoes de acao do cabecalho (carrinho, usuario) */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* container do menu dropdown do usuario */
+.user-menu {
+  position: relative;
+}
+
+/* menu dropdown do usuario com animacao de abertura */
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background: var(--white);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius);
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: var(--transition);
+  z-index: 200;
+}
+
+/* estado visivel do dropdown */
+.user-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* informacoes do usuario no dropdown */
+.user-info {
+  padding: 1rem;
+}
+
+.user-email {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.user-role {
+  font-size: 0.75rem;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+/* links dentro do dropdown do usuario */
+.user-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: var(--dark);
+  transition: var(--transition);
+  font-size: 0.875rem;
+}
+
+.user-dropdown a:hover {
+  background: var(--gray-light);
+}
+
+.user-dropdown .text-danger {
+  color: var(--danger);
+}
+
+/* rodape da pagina com fundo escuro */
+.footer {
+  background: var(--dark);
+  color: var(--white);
+  padding: 4rem 0 2rem;
+  margin-top: 4rem;
+}
+
+/* grid responsivo do conteudo do rodape */
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.footer-section h4 {
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+}
+
+.footer-description {
+  color: var(--gray);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  margin-top: 1rem;
+}
+
+/* lista de links do rodape */
+.footer-section ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-section ul li {
+  color: var(--gray);
+  font-size: 0.875rem;
+  transition: var(--transition);
+}
+
+.footer-section ul li:hover {
+  color: var(--white);
+}
+
+.footer-section ul a {
+  display: block;
+}
+
+/* icones de redes sociais */
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-links a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.social-links a:hover {
+  background: var(--primary);
+  transform: translateY(-4px);
+}
+
+/* linha inferior do rodape com copyright */
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: var(--gray);
+  font-size: 0.875rem;
+}
