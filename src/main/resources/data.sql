@@ -7,7 +7,7 @@
 -- ============================================
 INSERT INTO usuarios (id, nome, email, senha, role, ativo)
 VALUES (1000, 'Admin Technomade', 'admin@technomade.com',
-        '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy',
+        '$2b$10$F3AHcAMYSPKVem/bul.JG.SmPq2NMkB5T963caE/mAYGW80sGIFka',
         'ADMIN', true)
 ON CONFLICT (id) DO NOTHING;
 
@@ -16,7 +16,7 @@ ON CONFLICT (id) DO NOTHING;
 -- ============================================
 INSERT INTO usuarios (id, nome, email, senha, role, ativo)
 VALUES (1001, 'Carlos Silva', 'carlos@teste.com',
-        '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy',
+        '$2b$10$F3AHcAMYSPKVem/bul.JG.SmPq2NMkB5T963caE/mAYGW80sGIFka',
         'CLIENTE', true)
 ON CONFLICT (id) DO NOTHING;
 
